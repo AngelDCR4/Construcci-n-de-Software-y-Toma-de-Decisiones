@@ -90,16 +90,47 @@ function contador(arr) {
     };
 }
 
+/* 
 //Pruebas Ejemplo
 console.assert(
   //Json.stringify convierte un objeto en una cadena de texto en formato JSON
     JSON.stringify(contador([-2,-1,0,1,2,3])) === JSON.stringify({ceros:1,negativos:2,positivos:3}),
   //En caso de error
-    "Error en la prueba del arreglo"
+    "Error en la prueba del arreglo 1"
 );
 
 console.assert(
     JSON.stringify(contador([-1, 0, 5])) === JSON.stringify({ceros:1, negativos:1, positivos:1}),
-    "Error en la prueba del arreglo"
+    "Error en la prueba del arreglo 2"
 );
+*/
 
+/************* 
+EJERCICIO 4
+**************/
+
+function promedios(matrix){
+
+    let resultados = [];
+
+    for(let i = 0; i < matrix.length; i++){
+        let subarr = matrix[i]; //Sub arreglo del arreglo
+        let suma = 0;
+        for(let j = 0; j < subarr.length; j++){
+            suma += subarr[j];
+        }
+        let promedio = parseFloat((suma / subarr.length).toFixed(1)); //Redondear promedios
+        resultados.push(promedio);
+    }
+
+    return resultados;
+}
+
+console.assert(
+    JSON.stringify(promedios( [[1,1,1,1],[2,4,6,10]] )) === JSON.stringify([1, 5.5] ),
+    "Error en la prueba de promedios 1"
+);
+console.assert(
+    JSON.stringify(promedios( [[22,2,42,32],[5,3,8,7,4,1],[2,8,4]] )) === JSON.stringify([24.5, 4.7, 4.7] ),
+    "Error en la prueba de promedios 2"
+);
