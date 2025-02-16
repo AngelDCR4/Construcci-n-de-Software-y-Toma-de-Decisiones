@@ -1,7 +1,9 @@
 //Prueba de java funcionando
 console.log("XD");
 
-/* EJERCICIO 1*/
+/************* 
+EJERCICIO 1
+**************/
 function mostrartabla() {
     //Solicitar número
     let numero = parseInt(prompt("Por favor ingrese un número para la tabla:"));
@@ -24,7 +26,9 @@ function mostrartabla() {
 
 //mostrartabla();
 
-/*EJERCICIO 2 */
+/************* 
+EJERCICIO 2
+**************/
 
 function suma_aleatoria() {
           //Math.floor redondea un numero
@@ -56,4 +60,46 @@ function suma_aleatoria() {
     document.write(`Tiempo tomado: ${tiempototal} segundo`);
 }
 
-suma_aleatoria();
+//suma_aleatoria();
+
+/************* 
+EJERCICIO 3
+**************/
+
+function contador(arr) {
+    //contadores
+    let ceros = 0;
+    let negativos = 0;
+    let positivos = 0;
+
+    for(let i=0; i < arr.length; i++){
+        if(arr[i] == 0){
+            ceros++;
+        } else if(arr[i] < 0){
+            negativos++;
+        } else if(arr[i] > 0){
+            positivos++;
+        }
+    }
+
+    //Retorno de objetos con resultados
+    return{
+        ceros:ceros,
+        negativos:negativos,
+        positivos:positivos
+    };
+}
+
+//Pruebas Ejemplo
+console.assert(
+  //Json.stringify convierte un objeto en una cadena de texto en formato JSON
+    JSON.stringify(contador([-2,-1,0,1,2,3])) === JSON.stringify({ceros:1,negativos:2,positivos:3}),
+  //En caso de error
+    "Error en la prueba del arreglo"
+);
+
+console.assert(
+    JSON.stringify(contador([-1, 0, 5])) === JSON.stringify({ceros:1, negativos:1, positivos:1}),
+    "Error en la prueba del arreglo"
+);
+
