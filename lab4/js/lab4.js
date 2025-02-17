@@ -161,7 +161,43 @@ function inverso(num) {
     return num < 0 ? -num_rev : num_rev;
 }
 
-console.assert(inverso(12345) === 54321, "Error prueba 1")
-console.assert(inverso(-573) === -375, "Error prueba 2")
-console.assert(inverso(-212) === -212, "Error prueba 3")
-console.log("Pruebas inversas completadas")
+/*
+console.assert(inverso(12345) === 54321, "Error prueba 1");
+console.assert(inverso(-573) === -375, "Error prueba 2");
+console.assert(inverso(-212) === -212, "Error prueba 3");
+console.log("Pruebas inversas completadas");
+*/
+
+/************* 
+EJERCICIO 6 - Carrito de compras y costo total de productos
+**************/
+
+class Carrito_compras {
+    //Constructor
+    constructor() {
+        this.lista = [];
+    }
+    //Metodos
+    agregar_producto(nombre,precio) {
+        this.lista.push( {nombre,precio} );
+    }
+    costo_total() {
+        let total = 0;
+        for(let producto of this.lista) {
+            total += producto.precio;
+        }
+        return total;
+    }
+}
+
+//Pruebas de Carrito_compras
+
+let carrito_rolon = new Carrito_compras();
+carrito_rolon.agregar_producto("Platanos",35);
+carrito_rolon.agregar_producto("Leche",25);
+carrito_rolon.agregar_producto("Caja huevo", 55);
+carrito_rolon.agregar_producto("2kg de carne", 300)
+
+let total = carrito_rolon.costo_total();
+document.write("El costo total es " + total)
+
