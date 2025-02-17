@@ -126,6 +126,7 @@ function promedios(matrix){
     return resultados;
 }
 
+/*Pruebas Ejercicio 4
 console.assert(
     JSON.stringify(promedios( [[1,1,1,1],[2,4,6,10]] )) === JSON.stringify([1, 5.5] ),
     "Error en la prueba de promedios 1"
@@ -134,3 +135,33 @@ console.assert(
     JSON.stringify(promedios( [[22,2,42,32],[5,3,8,7,4,1],[2,8,4]] )) === JSON.stringify([24.5, 4.7, 4.7] ),
     "Error en la prueba de promedios 2"
 );
+*/
+
+/************* 
+EJERCICIO 5
+**************/
+
+function inverso(num) {
+    //Convertir num en valor absoluto
+    let num_ab = Math.abs(num).toString();
+    
+    //num.split("") -> Hace que la cadena se separe en un arreglo de caracteres
+    //.reverse() -> Invierte el orden de los caracteres del arreglo
+    //.join("") -> Hace que el arreglo se quede en una sola cadena de caracteres
+    let str_rev = num_ab.split("").reverse().join("");
+
+    //Convertir cadena en valores enteros
+    let num_rev = parseInt(str_rev);
+
+    //OPERADOR TERNARIO (if recortado)
+    //num < 0 | es la condición
+    //?       | Si la condición es verdadera
+    //:       | Si la condición es falsa
+    //Si el numero ingresado es negativo se agrega - al numero inverso
+    return num < 0 ? -num_rev : num_rev;
+}
+
+console.assert(inverso(12345) === 54321, "Error prueba 1")
+console.assert(inverso(-573) === -375, "Error prueba 2")
+console.assert(inverso(-212) === -212, "Error prueba 3")
+console.log("Pruebas inversas completadas")
