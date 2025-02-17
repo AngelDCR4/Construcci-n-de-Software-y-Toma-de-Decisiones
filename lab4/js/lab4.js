@@ -199,5 +199,4 @@ carrito_rolon.agregar_producto("Caja huevo", 55);
 carrito_rolon.agregar_producto("2kg de carne", 300)
 
 let total = carrito_rolon.costo_total();
-document.write("El costo total es " + total)
-
+document.write("El costo total es " + total);
