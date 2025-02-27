@@ -13,21 +13,11 @@ const main = `<!DOCTYPE html>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
   </head>
   <body>
-    <h1><b>Hola Mundo a todo</b></h1>
+    <br>
+    <h1><b>SEGUNDA PAGINA</b></h1>
 
     <br>
     <br>
-
-    <div class="columns">
-      <div class="column"><figure class="image is-128x128">
-      <img class="is-rounded" src="C:\\Users\\angel\\Documents\\C++\\.vscode\\Construcci-n-de-Software-y-Toma-de-Decisiones\\lab10\\jacob.jpg'">
-        </figure>
-</div>
-      <div class="column"> 
-      <figure class="image is-128x128">
-        <img class="is-rounded" src="rolon.jpg" alt="Imagen de rolon">
-      </figure></div>
-    </div>
 
     <form action="/extra" method="POST">
             <div class="field">
@@ -72,7 +62,8 @@ const html_main = `
 
   <section class="section">
     <div class="container">
-        <h1 class="title is-1">Inserta un nombre</h1>
+      <h1 class="title is-2">Primera página</h1>
+        <h2 class="title is-2">Inserta un nombre</h2>
           
           <form action="/new" method="POST">
             <div class="field">
@@ -90,7 +81,7 @@ const html_main = `
 </html>
 `;
 
-
+//height = Asegura que el div ocupe toda la pantalla
 const extra = `
 <!DOCTYPE html>
 <html>
@@ -101,12 +92,14 @@ const extra = `
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
   </head>
   <body>
-    <h1>Hola tonotos </h1>
+    <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+      <h1 style="text-align: center;">TERCERA PÁGINA</h1>
+    </div>
   </body>
 </html>
 `;
 
-const html_card=`<div style="margin-top:30px;" class="card">
+const html_card=`<div style="margin-top:30px;" class="card";>
   <div class="card-content">
     <div class="content">
       
@@ -120,46 +113,65 @@ const html_footer =`<br>
 
 
 
-
-const server = http.createServer((request, response) => {
-  if (request.method === "GET") {
-    response.writeHead(200, { "Content-Type": "text/html" }); 
-    response.write(html_main);
-    response.end();
-  } else if (request.method === "POST") {
-    const datos = [];
-    request.on('data',(dato)=>{
-      console.log(dato);
-      datos.push(dato);
-    })
-
-
-    request.on("end", () => {
-      if(request.url=="/new"){
-        const datos_completos = Buffer.concat(datos).toString();
-        console.log(datos_completos);
-        personajes.push(datos_completos.split('=')[1]);
+//Antes si la pagina no encontraba la ruta mandaba al main por predeterminado
+//Ahora si la ruta no existe se mandara a un error 404
+  const server = http.createServer((request, response) => {
+    if (request.method === "GET") {
+      if (request.url === "/") {
         response.writeHead(200, { "Content-Type": "text/html" });
-        response.write(main);
-        response.write('<div class="columns">');
-        for(const personaje of personajes){
-          response.write(html_card);
-          response.write(personaje);
-          response.write(html_footer);
-          response.write('</div');
-        }
-
-
+        response.write(html_main);
         response.end();
-      }else if(request.url=="/extra"){
-        response.writeHead(200, { "Content-Type": "text/html" });
-        response.write(extra)
+        //Si no se encuentra la ruta se despliega un error 404
+      } else {
+        response.writeHead(404, { "Content-Type": "text/html" });
+        response.write("<h1 style='text-align: center;'>404 - Pagina no encontrada</h1>");
         response.end();
       }
       
-    });
-  }
-});
+    } else if (request.method === "POST") {
+      //Captura de datos enviados en POST
+      const datos = [];
+      request.on("data", (dato) => {
+        datos.push(dato);
+      });
+      //
+      request.on("end", () => {
+        if (request.url === "/new") {
+          const datos_completos = Buffer.concat(datos).toString();
+          personajes.push(datos_completos.split("=")[1]);
+          response.writeHead(200, { "Content-Type": "text/html" });
+          response.write(main);
+  
+          response.write('<div class="columns is-multiline">');
+          for (const personaje of personajes) {
+            response.write(`
+              <div class="column is-one-quarter">
+                <div style="margin-top:30px; padding: 5px 15px 5px 15px;" class="card">
+                  <div class="card-content">
+                    <div class="content">
+                      ${personaje}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `);
+          }
+          response.end();
+        } else if (request.url === "/extra") {
+          response.writeHead(200, { "Content-Type": "text/html" });
+          response.write(extra);
+          response.end();
+        
+        //Si la URL no es /new ni /extra se envia error 404
+        } else {
+          response.writeHead(404, { "Content-Type": "text/html" });
+          response.write("<h1 style='text-align: center;'>404 - Página no encontrada</h1>");
+          response.end();
+        }
+      });
+    }
+  });
+  
 
 server.listen(3000, () => {
   console.log("Servidor corriendo en http://localhost:3000");
