@@ -19,6 +19,7 @@ router.get('/contact', (req, res) => {
 });
 
 //Ruta para manejar el formulario de contacto
+//'/submit-contact' sera la dirección posterior cuando se envie el formulario
 router.post('/submit-contact', (req, res) => {
     const {nombre, mensaje} = req.body //Extracción de datos en formulario
 
