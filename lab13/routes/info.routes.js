@@ -6,14 +6,10 @@ const router = express.Router();
 const controlador = require('../controllers/controller.js');
 
 //PAGINA ACERCA DE
-router.get('/about', (req, res) => {
-    res.render('about', { titulo: 'Acerca de Nosotros' });
-});
+router.get('/about', controlador.about);
 
 //PAGINA DE SERVICIOS
-router.get('/services', (req, res) => {
-    res.render('services', { titulo: 'Nuestros Servicios' });
-});
+router.get('/services', controlador.services);
 
 //PAGINA DE PREGUNTAS FRECUENTES
 //En este caso separamos la función para solo colocar la ruta

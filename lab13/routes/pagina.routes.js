@@ -10,16 +10,10 @@ const controlador = require('../controllers/controller.js');
 
 //PAGINA PRINCIPAL
 //Definir ruta para página principal (/)
-router.get('/', (req, res) => {
-    //Manejar peticion get cuando usuario visita /
-    //res.render() busca archivos en la carpeta views/ (index.ejs)
-    res.render('index', {mensaje: 'Bienvenido a mi sitio dinámico!'}); //renderiza vista index.ejs y pasa variable mensaje
-});
+router.get('/', controlador.main);
 
 //PAGINA CONTACTO
-router.get('/contact', (req, res) => {
-    res.render('contact', {titulo: 'Contacto'});
-});
+router.get('/contact', controlador.contacto);
 
 //Ruta para manejar el formulario de contacto
 //'/submit-contact' sera la dirección posterior cuando se envie el formulario
