@@ -1,3 +1,5 @@
+const Mensaje = require("../models/mensaje");
+
 //Separamos la funcion de nuestra ruta y la colocalmos en el controlador
 exports.faq = (req, res) => {
     res.render('faq', { titulo: 'Preguntas Frecuentes' });
@@ -25,15 +27,14 @@ exports.contacto = (req, res) => {
 exports.formulario = (req, res) => {
     const {nombre, mensaje} = req.body //Extracción de datos en formulario
 
-    //Formato del mensaje
-    const data = `Nombre: ${nombre}\nMensaje: ${mensaje}\n---\n`;
+    const nuevoMensaje = new Mensaje(nombre,mensaje);
+    nuevoMensaje.save(); //Guardar mensaje usando el modelo
 
-    //Guardar en un archivo txt - El archivo se crea solito
-    fs.appendFile('mensaje.txt', data, (err) => {
-        if (err) {
-            console.error(err);
-            return res.send("Error al guadar el mensaje");
-        }
-        res.send("Mensaje recibido. ¡Gracias por contactarnos :D!");
+    res.redirect('/mensajes');
+};
+
+exports.obtenerMensajes = (req, res) => {
+    Mensaje.fetchAll((mensajes) => {
+        res.render('mensajes', {titulo: 'Mensajes Recibidos', mensajes});
     });
 };

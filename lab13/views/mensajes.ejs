@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<%- include('includes/head') %>
+<body>
+    <%- include('includes/navbar') %>
+
+    <h1><%= titulo %></h1>
+
+    <% if (mensajes.length > 0) { %>
+        <ul>
+            <% mensajes.forEach(mensaje => { %>
+                <li><%= mensaje %></li>
+            <% }); %>
+        </ul>
+    <% } else { %>
+        <p>No hay mensajes aún.</p>
+    <% } %>
+
+    <%- include('includes/footer') %>
+</body>
+</html>

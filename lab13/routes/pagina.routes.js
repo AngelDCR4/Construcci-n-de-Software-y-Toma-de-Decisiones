@@ -22,4 +22,5 @@ router.post('/submit-contact',controlador.formulario);
 //Exportación de router para usarlo en server.js
 module.exports = router; //Permite que server.js pueda importar y usar las rutas definidas aquí
 
-//Importar routes/main.js en server.js
+//Ruta para ver mensajes
+router.get('/mensajes', controlador.obtenerMensajes);

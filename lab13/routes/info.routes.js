@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 
 //Definimos donde esta el archivo de controlador
-//CORREGIR RUTA ---------------------------------- ERROR
 const controlador = require('../controllers/controller.js');
 
 //PAGINA ACERCA DE
