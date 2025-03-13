@@ -9,7 +9,7 @@
     <% if (mensajes.length > 0) { %>
         <ul>
             <% mensajes.forEach(mensaje => { %>
-                <li><%= mensaje %></li>
+                <li><strong><%= mensaje.nombre %>:</strong> <%= mensaje.contenido %></li>
             <% }); %>
         </ul>
     <% } else { %>
