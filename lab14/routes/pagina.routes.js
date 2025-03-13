@@ -8,6 +8,14 @@ const fs = require('fs'); //Importación de modulo fs para guardar datos en un a
 //Definimos en donde esta nuestro controlador
 const controlador = require('../controllers/controller.js');
 
+//Middleware para verificar autenticación
+function verificarSesion(req, res, next) {
+    if (!req.session.user) { //Si no esta logeado
+        return res.redirect('/login'); //Redirige a login
+    }
+    next(); //Si hay sesión continua con el siguiente middleware
+}
+
 //PAGINA PRINCIPAL
 //Definir ruta para página principal (/)
 router.get('/', controlador.main);
@@ -23,4 +31,9 @@ router.post('/submit-contact',controlador.formulario);
 module.exports = router; //Permite que server.js pueda importar y usar las rutas definidas aquí
 
 //Ruta para ver mensajes
-router.get('/mensajes', controlador.obtenerMensajes);
+//Para añadir proteccion a la pagina si no se esta logeado se redirigira a la pagina de log
+
+// Ruta protegida para ver mensajes
+router.get('/mensajes', verificarSesion, controlador.obtenerMensajes);
+
+module.exports = router;

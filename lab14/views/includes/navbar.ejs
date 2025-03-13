@@ -8,5 +8,10 @@
     <a href="/faq">Preguntas Frecuentes</a> | 
     <a href="/contact">Contacto</a> |
     <a href="/mensajes">Mensajes</a> |
-    <a href="/users">Login</a> 
+
+    <% if (session && session.user) { %>
+        <a href="/logout">Cerrar sesión</a>
+    <% } else { %>
+        <a href="/login">Login</a>
+    <% } %> 
 </nav>

@@ -7,3 +7,5 @@ Mensaje: Xd
 Nombre: Angel
 Mensaje: Hola
 ---
+NUEVO::HOLA
+Omar::dice ola

@@ -54,13 +54,23 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.urlencoded({extended: true})); //Permite que express lea datos enviados en forms POST
 
+
+app.use((req, res, next) => {
+    res.locals.session = req.session;
+    next();
+});
+
+
 //Rutas externas
 const paginaRoutes = require('./routes/pagina.routes.js'); //Carga archivo de la ruta definida, para definir las rutas de nuestra app
                           //Express no permite rutas relativas por ello requiere '/' en lugar de '\'
 const infoRoutes = require('./routes/info.routes.js')
 
+const userRoutes = require('./routes/user.routes.js');
+
 app.use(paginaRoutes); //Hace que express las use
 app.use(infoRoutes)
+app.use(userRoutes);
 
 //Si el usuario intenta acceder a otra ruta que no existe se mostrara el mensaje correspondiente y codigo error 404
 app.use((req, res) => {
