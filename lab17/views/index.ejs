@@ -1,0 +1,33 @@
+<!--EJS Embedded JavaScript
+Es un moto de plantillas que nos permite generar HTML dinámico en Express
+En lugar de usar HTML estático, EJS nos permite insertar Javascript dentro del HTML
+
+Ya configuramos EJS en server.js con la linea 11
+app.set('view engine', 'ejs');
+-->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Principal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <!--<h1><%= %></h1> Inserta dinamicamente la variable mensaje que viene en pagina.routes-->
+    <h1><%= mensaje %></h1> <!-- Renderiza la variable "mensaje" desde server.js -->
+
+    <!--EJS nos permite usar Javascript dentro de HTML permitiendo colocar la fecha actual-->
+    <p>Esta es una página generada con EJS.</p>
+    <p>Hoy es: <%= new Date().toLocaleDateString() %></p>
+
+    <a href="/contact">Ir a la página "Contacto"</a>
+</body>
+</html>
