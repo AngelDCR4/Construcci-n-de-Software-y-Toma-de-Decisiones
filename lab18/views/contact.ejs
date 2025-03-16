@@ -1,0 +1,19 @@
+<%- include('includes/head') %>
+<body>
+    <%- include('includes/navbar') %>
+    <h1><%= titulo %></h1>
+    <p>ENVIANOS UN MENSAJE</p>
+    <%- include('includes/footer') %>
+        <form action="/submit-contact" method="POST">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
+        <br>
+
+        <label for="mensaje">Mensaje:</label>
+        <textarea id="mensaje" name="mensaje" required></textarea>
+        <br>
+
+        <button type="submit">Enviar</button>
+    </form>
+</body>
+</html>
