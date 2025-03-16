@@ -3,19 +3,14 @@
     <%- include('includes/navbar') %>
     <h1><%= titulo %></h1>
     <p>Consulta las preguntas más frecuentes.</p>
-    <p><b>¿Qué beneficios encuentras en el estilo MVC?</b></p>
+    <p><b>¿Qué otras formas de autentificación existen?</b></p>
         <ul>
-            <li>Es una estructura modular, representando un codigo de mejor mantenimiento, pruebas por separado sin afectar otras partes</li>
-            <li>Permite la reutilización de código, permitiendo que distintos componentes se usen en distintas plataformas</li>
-            <li>Mejora la coherencia y la calidad del código, garantizando fiabilidad y funcionalidad</li>
-            <li>Permite la escalabilidad dentro de los proyectos</li>
+            <li>Tokens - Se usan Apis y se genera un token al iniciar sesion</li>
+            <li>OAuth 2.0 - Permite iniciar sesion a usuarios con Google</li>
+            <li>Biometrica - Uso de huellas dactilares, reconocimiento facial o de retina</li>
+            <li>OTP códigos de un solo uso - Se envia por medio de SMS o Google Authenticator</li>
+            <li>NFC O RFID - Se usa en tarjetas de acceso y pagos moviles</li>
         </ul>>
-    <p><b>¿Encuentras alguna desventaja en el estilo arquitectónico MVC?</b></p>
-        <ul>
-            <li>Puede llegar a ser una estructura muy compleja para proyectos pequeños</li>
-            <li>Dificil de implementar en lenguajes que no siguen paradigma orientado a objetos</li>
-            <li>Aumenta el tiempo de desarrollo, la curva de aprendizaje, documentación, y comunicación entre desarrolladores</li>
-        </ul>
     <%- include('includes/footer') %>
 </body>
 </html>
