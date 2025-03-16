@@ -7,13 +7,15 @@ module.exports = class Usuario {
         this.password = password;
     }
 
-//Metodo para guardar usuario en BD
+//Guardar usuario en BD con contraseña Hasheada
     async save() {
         //Aplicamos 12 veces un hash a la contraseña (recomendado) 
         const hashedPassword = await bcrypt.hash(this.password, 12);
         //Insertamos el usuario y la contraseña hasheada en BD
-        return db.execute('INSERT INTO usuarios (username, password) VALUES (?, ?)'),
-            [this.username, hashedPassword];
+        return db.execute(
+            'INSERT INTO usuarios (username, password) VALUES (?, ?)',
+            [this.username, hashedPassword]
+        );
     }
 //Metodo estatico para buscar un usuario por su nombre de usuario
     static findByUsername(username) {
