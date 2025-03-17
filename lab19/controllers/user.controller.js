@@ -27,8 +27,16 @@ exports.post_login = async (req, res) => {
 
         //Si las contraseñas coinciden iniciamos sesion
         if(doMatch) {
+            //Obtener los roles y permisos del usuario desde la BD 
+            const [rolesPermisos] = await Usuario.getRolesAndPermissions(usuario.id)
+
             req.session.user = usuario; //Guardamos datos de usuario
             req.session.isLoggedIn = true; //Marcamos como autenticado
+            //Guardamos el rol del usuario en un array para su uso durante la sesion
+            req.session.roles = rolesPermisos.map(rp => rp.rol)
+            //Guardamos los permisos del usuario en un array para su uso durante la sesion
+            req.session.permisos = rolesPermisos.map(rp => rp.permiso)
+
             // Guardamos la sesion y redirigimos a la págima de mensajes
             return req.session.save(err => {
                 res.redirect('/mensajes');
