@@ -1,0 +1,11 @@
+Nombre: xd
+Mensaje: hola
+---
+Nombre: xd
+Mensaje: Xd
+---
+Nombre: Angel
+Mensaje: Hola
+---
+NUEVO::HOLA
+Omar::dice ola
