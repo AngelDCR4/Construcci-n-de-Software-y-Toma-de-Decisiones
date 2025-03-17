@@ -8,6 +8,9 @@ const router = express.Router(); //Nos permite definir rutas en archivos separad
 const controlador = require('../controllers/controller.js');
 const mensajeController = require('../controllers/mensajeController.js')
 
+//Definimos middleware auth para autorizaciones
+const autorizar = require('../middleware/auth.js')
+
 //Middleware para verificar autenticación
 function verificarSesion(req, res, next) {
     if (!req.session.user) { //Si no esta logeado
@@ -34,6 +37,8 @@ module.exports = router; //Permite que server.js pueda importar y usar las rutas
 //Para añadir proteccion a la pagina si no se esta logeado se redirigira a la pagina de log
 
 // Ruta protegida para ver mensajes
-router.get('/mensajes', verificarSesion, mensajeController.obtenerMensajes);
+//Ademas solo si el usuario es Admin y tiene permiso de ver mensajes
+//Los roles y los permisos deben de ser iguales conforme esten en la BD
+router.get('/mensajes', verificarSesion, autorizar('admin', 'ver_mensajes'), mensajeController.obtenerMensajes);
 
 module.exports = router;

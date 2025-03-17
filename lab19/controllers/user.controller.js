@@ -36,7 +36,11 @@ exports.post_login = async (req, res) => {
             req.session.roles = rolesPermisos.map(rp => rp.rol)
             //Guardamos los permisos del usuario en un array para su uso durante la sesion
             req.session.permisos = rolesPermisos.map(rp => rp.permiso)
-
+            
+            //Imprimir los permisos de acuerdo al tipo de usuario
+            console.log("Roles en sesión:", req.session.roles);
+            console.log("Permisos en sesión:", req.session.permisos);
+            
             // Guardamos la sesion y redirigimos a la págima de mensajes
             return req.session.save(err => {
                 res.redirect('/mensajes');
