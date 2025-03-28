@@ -6,6 +6,8 @@ const path = require('path'); //Modulo nativo de Node.js - se usa para manejar r
 const bodyParser = require('body-parser'); //BodyParser permite interpretar datos enviados en formularios HTML por peticiones POST
 const session = require('express-session'); //Permite manejar sesiones en la aplicación para que los datos persistan en diferentes peticiones del usuario
 const cookieParser = require('cookie-parser'); //Permite leer y escribir cookies en el navegador
+const multer = require('multer'); //Multer es un middleware para manejar la subida de archivos en formularios HTML
+const archivoRoutes = require('./routes/archivo.routes.js'); 
 
 //Inicialización de express para app
 const app = express();
@@ -68,9 +70,38 @@ const infoRoutes = require('./routes/info.routes.js')
 
 const userRoutes = require('./routes/user.routes.js');
 
+//Configuración de multer para manejar la subida de archivos
+const fileStorage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, path.join(__dirname, 'public')); //Ruta donde se guardaran los archivos subidos
+    },
+    filename: (req, file, cb) => {
+        cb(null, new Date().toISOString().replace(/:/g, '-') + '-' + file.originalname);
+    }
+});
+
+//fileStorage es un objeto que indica donde se guardaran los archivos subidos y como se llamaran
+//sirve para aceptar ciertos tipos de archivos
+const fileFilter = (req, file, cb) => {
+    if (
+        file.mimetype === 'image/png' ||
+        file.mimetype === 'image/jpg' ||
+        file.mimetype === 'image/jpeg'
+    ) {
+        cb(null, true);
+    } else {
+        cb(null, false);
+    }
+};
+
+// Registra multer
+app.use(multer({ storage: fileStorage, fileFilter: fileFilter }).single('archivo'));
+
+
 app.use(paginaRoutes); //Hace que express las use
 app.use(infoRoutes)
 app.use(userRoutes);
+app.use(archivoRoutes);
 
 //Si el usuario intenta acceder a otra ruta que no existe se mostrara el mensaje correspondiente y codigo error 404
 app.use((req, res) => {

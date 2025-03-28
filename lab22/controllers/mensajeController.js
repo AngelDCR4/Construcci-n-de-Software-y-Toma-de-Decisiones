@@ -8,9 +8,10 @@ exports.contacto = (req, res) => {
 //Maneja el formulario y guarda en la BD
 exports.formulario = async (req, res) => {
     const { nombre, mensaje } = req.body; //Extrae datos del form
+    const archivo = req.file ? req.file.filename : null; // Verifica si se subió un archivo
     
     try {
-        const nuevoMensaje = new Mensaje(nombre, mensaje); //Crea una instancia en modelo Mensaje
+        const nuevoMensaje = new Mensaje(nombre, mensaje, archivo); //Crea una instancia en modelo Mensaje
         await nuevoMensaje.save(); //Guardar mensaje en la BD
         res.redirect('/mensajes');
     } catch (error) {
