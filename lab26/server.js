@@ -68,9 +68,12 @@ const infoRoutes = require('./routes/info.routes.js')
 
 const userRoutes = require('./routes/user.routes.js');
 
+const calendarRoutes = require('./routes/calendar.routes');
+
 app.use(paginaRoutes); //Hace que express las use
 app.use(infoRoutes)
 app.use(userRoutes);
+app.use(calendarRoutes);
 
 //Si el usuario intenta acceder a otra ruta que no existe se mostrara el mensaje correspondiente y codigo error 404
 app.use((req, res) => {

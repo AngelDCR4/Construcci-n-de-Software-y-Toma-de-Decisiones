@@ -1,0 +1,44 @@
+<!-- calendar.ejs -->
+
+<%- include('includes/head') %>
+<%- include('includes/navbar') %>
+
+<link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css' rel='stylesheet' />
+
+<h1>Próximos eventos en tu calendario</h1>
+<ul>
+  <% events.forEach(event => { %>
+    <li><strong><%= event.summary %></strong> - <%= event.start.dateTime || event.start.date %></li>
+  <% }) %>
+</ul>
+
+<div id='calendar'></div>
+
+<!-- SCRIPT CALENDARIO -->
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.js'></script>
+
+<script>
+  // Pasamos los eventos del servidor a una variable JS
+  const eventsFromServer = <%- JSON.stringify(events.map(e => ({
+    title: e.summary,
+    start: e.start.dateTime || e.start.date,
+    end: e.end?.dateTime || e.end?.date || null
+  }))) %>;
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const calendarEl = document.getElementById('calendar');
+
+    const calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth',
+      locale: 'es', // Español
+      headerToolbar: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+      },
+      events: eventsFromServer
+    });
+
+    calendar.render();
+  });
+</script>
